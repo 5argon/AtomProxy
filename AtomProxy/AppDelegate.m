@@ -22,6 +22,7 @@
     
     NSData *eventData = [event data];
     
+    
     unsigned char *buffer = malloc(sizeof(UInt16));
     [eventData getBytes: buffer range:NSMakeRange(422, sizeof(UInt16))];
     UInt16 x = *(UInt16 *)buffer;
@@ -29,6 +30,12 @@
         x = 0;
     }
     x += 1;
+    
+    [eventData getBytes: buffer range:NSMakeRange(422+sizeof(UInt16)+sizeof(UInt16),sizeof(UInt16))];
+    UInt16 y = *(UInt16 *)buffer;
+    if (y == ((UInt16)65534)) {
+        y = 0;
+    }
     
     const AEKeyword filekey  = '----';
     NSString *filepath = [[[event descriptorForKeyword:filekey] stringValue] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
@@ -39,6 +46,7 @@
     [task setArguments: arguments];
     
     [task launch];
+    [[NSApplication sharedApplication] terminate:nil];
 }
 
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename

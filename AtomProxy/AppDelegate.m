@@ -31,14 +31,9 @@
     }
     x += 1;
     
-    [eventData getBytes: buffer range:NSMakeRange(422+sizeof(UInt16)+sizeof(UInt16),sizeof(UInt16))];
-    UInt16 y = *(UInt16 *)buffer;
-    if (y == ((UInt16)65534)) {
-        y = 0;
-    }
-    
     const AEKeyword filekey  = '----';
     NSString *filepath = [[[event descriptorForKeyword:filekey] stringValue] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+
     NSString *filepathWithLine = [NSString stringWithFormat:@"%@:%d", filepath, x];
     filepathWithLine = [filepathWithLine stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSArray *arguments;

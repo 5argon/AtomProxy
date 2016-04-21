@@ -1,5 +1,13 @@
 # Atom Proxy
 
+This fork add just two things from ArjunNair's fork :
+- Previously the AtomProxy.app will be left open along side Atom, this fork close it. (It is an obstable while Cmd+Tabbing)
+- Added the build to Builds folder. Those who just want to use it can download the .app in there.
+
+5argon
+
+-------
+
 Hey,
 
 To install:
